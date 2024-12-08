@@ -21,3 +21,52 @@ Install Postfix, Dovecot, and Mutt.
 
 ```bash
 sudo apt install postfix dovecot-core dovecot-imapd mutt -y
+
+##Step 3: Configure Postfix (SMTP Server)
+Open the Postfix configuration file:
+
+```bash
+sudo nano /etc/postfix/main.cf
+Update the following parameters in main.cf:
+
+```bash
+myhostname = localhost
+mydomain = localdomain
+myorigin = $mydomain
+inet_interfaces = all
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+home_mailbox = Maildir/
+Restart Postfix to apply changes:
+
+```bash
+sudo systemctl restart postfix
+
+
+##Step 4: Configure Dovecot (IMAP/POP3 Server)
+Open the Dovecot configuration file:
+
+
+```bash
+sudo nano /etc/dovecot/dovecot.conf
+
+Enable the IMAP protocol. Update the file to include:
+
+plaintext
+Copy code
+protocols = imap
+mail_location = maildir:~/Maildir
+Open the authentication configuration file:
+
+bash
+Copy code
+sudo nano /etc/dovecot/conf.d/10-auth.conf
+Uncomment and set disable_plaintext_auth to no:
+
+plaintext
+Copy code
+disable_plaintext_auth = no
+Restart Dovecot to apply changes:
+
+bash
+Copy code
+sudo systemctl restart dovecot
