@@ -15,7 +15,7 @@ Update and upgrade your system to ensure you have the latest versions of all pac
 ```bash
 sudo apt update
 sudo apt upgrade -y
-
+```bash
 ##Step 2: Install Required Packages
 Install Postfix, Dovecot, and Mutt.
 
